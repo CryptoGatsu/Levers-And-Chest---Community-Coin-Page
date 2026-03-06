@@ -3,7 +3,7 @@
 
 <head>
 
-<title>Levers & Chest</title>
+<title>Levers & Chests</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
@@ -21,166 +21,103 @@ overflow-x:hidden;
 /* dungeon background */
 
 body::before{
-
 content:"";
 position:fixed;
 width:100%;
 height:100%;
 background:
-
 radial-gradient(circle at 20% 30%,rgba(255,120,0,0.25),transparent 40%),
 radial-gradient(circle at 80% 40%,rgba(255,120,0,0.25),transparent 40%),
 linear-gradient(#1c1c1c,#050505);
-
 z-index:-1;
-
 }
 
-/* title */
-
 h1{
-
 color:#ffd76a;
 margin-top:60px;
 font-size:34px;
-
 }
 
 .subtitle{
-
 color:#bbb;
 margin-bottom:40px;
-
 }
 
 /* lever */
 
 .lever{
-
 width:120px;
 height:120px;
 margin:auto;
-
 background:#444;
 border:5px solid #777;
 border-radius:12px;
-
 display:flex;
 justify-content:center;
 align-items:center;
-
 cursor:pointer;
 transition:.4s;
-
 }
 
 .lever-stick{
-
 width:16px;
 height:90px;
 background:red;
 border-radius:4px;
 transition:.4s;
-
 }
 
 .lever.pulled .lever-stick{
-
 transform:rotate(50deg) translateY(30px);
-
 }
 
 /* chest */
 
 .chest{
-
 width:280px;
 height:160px;
-
 margin:40px auto;
-
 background:linear-gradient(#6a3f1d,#4a2b13);
-
 border:6px solid #b48a44;
 border-radius:10px;
-
 display:flex;
 align-items:center;
 justify-content:center;
-
 position:relative;
-
 transition:.6s;
-
 }
 
 .chest.open{
-
 box-shadow:0 0 80px gold;
-
 }
 
-/* lid */
-
 .lid{
-
 position:absolute;
 top:-30px;
-
 width:280px;
 height:50px;
-
 background:#7b4a21;
 border:6px solid #b48a44;
-
 transform-origin:bottom;
 transition:.5s;
-
 }
 
 .chest.open .lid{
-
 transform:rotateX(120deg);
-
-}
-
-/* particles */
-
-.spark{
-
-position:absolute;
-width:6px;
-height:6px;
-background:gold;
-border-radius:50%;
-
-animation:rise 2s infinite;
-
-}
-
-@keyframes rise{
-
-0%{transform:translateY(0);opacity:1}
-100%{transform:translateY(-80px);opacity:0}
-
 }
 
 /* gears */
 
 .gear{
-
 position:absolute;
 width:120px;
 height:120px;
 border:10px solid #333;
 border-radius:50%;
-
 animation:spin 8s linear infinite;
-
 }
 
 .gear:before{
-
 content:"";
 position:absolute;
 width:20px;
@@ -189,85 +126,70 @@ background:#333;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-
 }
 
 .gear1{left:60px;top:200px;}
 .gear2{right:60px;top:260px;animation-direction:reverse;}
 
 @keyframes spin{
-
 from{transform:rotate(0)}
 to{transform:rotate(360deg)}
-
 }
 
-/* panels */
-
 .panel{
-
 margin-top:80px;
 padding:40px;
 background:#111;
 border-top:6px solid #333;
-
 }
 
 .ca{
-
 background:black;
 padding:18px;
 border:3px solid #666;
 display:inline-block;
 margin-top:20px;
 word-break:break-all;
-
 }
 
-/* inventory */
-
 .inventory{
-
 margin-top:40px;
 display:grid;
 grid-template-columns:repeat(5,70px);
 gap:10px;
 justify-content:center;
-
 }
 
 .slot{
-
 width:70px;
 height:70px;
 background:#222;
 border:3px solid #555;
-
 }
 
-/* buttons */
-
 button{
-
 margin-top:20px;
 padding:14px 22px;
 background:#ffd76a;
 border:none;
 font-family:'Press Start 2P';
 cursor:pointer;
-
 }
 
 button:hover{
-
 background:#ffe8a6;
-
 }
 
 .hidden{
-
 display:none;
+}
 
+/* chart */
+
+.chart-container{
+max-width:700px;
+margin:auto;
+margin-top:40px;
 }
 
 </style>
@@ -279,68 +201,57 @@ display:none;
 <div class="gear gear1"></div>
 <div class="gear gear2"></div>
 
-<h1>LEVERS & CHEST</h1>
+<h1>LEVERS & CHESTS</h1>
 
 <div class="subtitle">
-
 Pull the lever. Unlock the chest.
-
 </div>
-
 
 <div class="lever" id="lever" onclick="pullLever()">
-
 <div class="lever-stick"></div>
-
 </div>
-
 
 <div id="chest" class="chest hidden">
-
 <div class="lid"></div>
-
-<div class="spark"></div>
-<div class="spark" style="left:40%"></div>
-<div class="spark" style="left:60%"></div>
-
 TREASURE
-
 </div>
-
 
 <div id="content" class="panel hidden">
 
 <h2>The Game</h2>
 
 <p>
-
-A mysterious project from the creator of Minecraft.
-
+Levers & Chests is a mysterious new project being explored by the community following the work of Markus Persson.
 </p>
-
 
 <h2>Community Coin</h2>
 
 <div class="ca">
-
 DZjBpT8ddQom9GJXBqWNzcJQGw4ZE9RNVryzWcy5pump
-
 </div>
 
 <br>
 
 <button onclick="window.open('https://x.com/i/communities/2029971730362487122')">
-
 Join Community
-
 </button>
 
 <button onclick="window.open('https://github.com/xNotch')">
-
 Support Notch
-
 </button>
 
+<h2>About Notch</h2>
+
+<p style="max-width:700px;margin:auto;line-height:1.6">
+
+Markus Persson, also known as Notch, created Minecraft in 2009.  
+The sandbox game quickly became one of the most influential and successful games ever made, inspiring an entire generation of builders and game developers.
+
+Today millions of players around the world still explore the block-based worlds he created.
+
+The community is now watching closely as new experimental projects like Levers & Chests begin to appear.
+
+</p>
 
 <h2>Inventory</h2>
 
@@ -360,21 +271,19 @@ Support Notch
 
 </div>
 
-
 <h2>Coin Chart</h2>
 
+<div class="chart-container">
+
 <iframe
-
 src="https://dexscreener.com/solana/DZjBpT8ddQom9GJXBqWNzcJQGw4ZE9RNVryzWcy5pump?embed=1"
-
 width="100%"
-height="500"
-
-></iframe>
+height="320">
+</iframe>
 
 </div>
 
-
+</div>
 
 <script>
 
@@ -394,7 +303,6 @@ document.getElementById("content").classList.remove("hidden")
 }
 
 </script>
-
 
 </body>
 
