@@ -5,15 +5,32 @@
 
 <title>Levers & Chests</title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Pixel Font -->
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<!-- OpenGraph -->
+
+<meta property="og:title" content="Levers & Chests">
+<meta property="og:description" content="Pull the lever. Unlock the dungeon.">
+<meta property="og:image" content="https://leversandchests.fun/preview.png">
+<meta property="og:url" content="https://leversandchests.fun">
+<meta property="og:type" content="website">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Levers & Chests">
+<meta name="twitter:description" content="Pull the lever. Unlock the dungeon.">
+<meta name="twitter:image" content="https://leversandchests.fun/preview.png">
 
 <style>
 
 body{
+
 margin:0;
+font-family:'Press Start 2P', monospace;
 background:#0f0f0f;
 color:white;
-font-family:'Press Start 2P', monospace;
 text-align:center;
 overflow-x:hidden;
 
@@ -22,15 +39,46 @@ linear-gradient(#2a2a2a 2px, transparent 2px),
 linear-gradient(90deg,#2a2a2a 2px, transparent 2px);
 
 background-size:80px 80px;
-background-color:#1a1a1a;
+
+}
+
+/* Floating stats bar */
+
+.statsbar{
+
+position:fixed;
+top:0;
+left:0;
+width:100%;
+
+background:#0a0a0a;
+border-bottom:3px solid #333;
+
+display:flex;
+justify-content:center;
+gap:40px;
+
+padding:12px;
+font-size:11px;
+
+z-index:999;
+
+}
+
+.statsbar span{
+
+color:#ffd76a;
+
 }
 
 /* fog */
 
 .fog{
+
 position:fixed;
 top:0;
 left:0;
+
 width:200%;
 height:200%;
 
@@ -40,185 +88,267 @@ radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 60%);
 animation:fogmove 60s linear infinite;
 
 pointer-events:none;
+
 }
 
 @keyframes fogmove{
+
 0%{transform:translateX(0)}
 100%{transform:translateX(-50%)}
+
 }
 
 /* hero */
 
 .hero{
+
 height:100vh;
+
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+
 position:relative;
+
+margin-top:40px;
+
 }
 
 /* torches */
 
 .torch{
+
 position:absolute;
 top:140px;
+
 width:30px;
 height:80px;
+
 }
 
 .torch.left{left:60px;}
 .torch.right{right:60px;}
 
 .flame{
+
 width:18px;
 height:26px;
+
 margin:auto;
+
 background:orange;
+
 border-radius:50%;
+
 box-shadow:0 0 20px orange;
+
 animation:flicker .25s infinite alternate;
+
 }
 
 .stick{
+
 width:6px;
 height:50px;
+
 background:#5a3b1a;
+
 margin:auto;
+
 }
 
 @keyframes flicker{
+
 from{transform:scale(1)}
 to{transform:scale(1.2)}
+
 }
 
 /* title */
 
 h1{
+
 color:#ffd76a;
 margin-bottom:40px;
 font-size:34px;
+
 }
 
 /* lever */
 
 .lever-block{
+
 width:140px;
 height:120px;
+
 background:#555;
+
 border:6px solid #777;
+
 display:flex;
 align-items:center;
 justify-content:center;
+
 cursor:pointer;
+
 }
 
 .lever{
+
 width:16px;
 height:80px;
+
 background:#d12b2b;
+
 transform-origin:bottom;
+
 transition:.4s;
+
 }
 
 .lever.pulled{
+
 transform:rotate(50deg);
+
 }
 
 /* counter */
 
 .counter{
+
 margin-top:25px;
 color:#ffd76a;
 font-size:14px;
+
 }
 
 /* particles */
 
 #particles{
+
 position:absolute;
 top:50%;
 left:50%;
+
 pointer-events:none;
+
 }
 
 .particle{
+
 position:absolute;
+
 width:6px;
 height:6px;
+
 background:gold;
+
 border-radius:50%;
+
 animation:burst 800ms ease-out forwards;
+
 }
 
 @keyframes burst{
+
 0%{
+
 transform:translate(0,0) scale(1);
 opacity:1;
+
 }
+
 100%{
-transform:translate(var(--x), var(--y)) scale(0);
+
+transform:translate(var(--x),var(--y)) scale(0);
 opacity:0;
+
 }
+
 }
 
 /* content */
 
 .panel{
+
 padding:80px 20px;
+
 background:#111;
+
 border-top:6px solid #333;
+
 }
 
-/* buttons */
-
 button{
+
 padding:14px 22px;
+
 background:#ffd76a;
+
 border:none;
+
 font-family:'Press Start 2P';
+
 cursor:pointer;
+
 margin-top:20px;
+
 }
 
 button:hover{
+
 background:#ffe8a6;
+
 }
 
 /* coin */
 
 .ca{
-background:black;
-padding:18px;
-border:3px solid #666;
-display:inline-block;
-margin-top:20px;
-word-break:break-all;
-}
 
-.price{
-margin-top:25px;
-color:#ffd76a;
-font-size:14px;
+background:black;
+
+padding:18px;
+
+border:3px solid #666;
+
+display:inline-block;
+
+margin-top:20px;
+
+word-break:break-all;
+
 }
 
 /* disclaimer */
 
 .disclaimer{
+
 margin-top:80px;
+
 padding:40px;
+
 background:#0a0a0a;
+
 border-top:4px solid #333;
+
 font-size:11px;
+
 line-height:1.6;
+
 color:#aaa;
+
 max-width:900px;
+
 margin-left:auto;
 margin-right:auto;
+
 }
 
 .hidden{
+
 display:none;
+
 }
 
 </style>
@@ -226,6 +356,16 @@ display:none;
 </head>
 
 <body>
+
+<div class="statsbar">
+
+<div>PRICE<br><span id="priceStat">--</span></div>
+<div>VOLUME<br><span id="volumeStat">--</span></div>
+<div>LIQUIDITY<br><span id="liqStat">--</span></div>
+<div>MCAP<br><span id="mcStat">--</span></div>
+<div>LEVER PULLS<br><span id="leverStat">--</span></div>
+
+</div>
 
 <div class="fog"></div>
 
@@ -264,25 +404,17 @@ Pull the lever to unlock the dungeon
 
 <div id="content" class="panel hidden">
 
-<h2>The Game</h2>
-
-<p style="max-width:700px;margin:auto">
-
-Levers & Chests is a mysterious new project being explored by the community following the work of Markus Persson.
-
-</p>
-
 <h2>Community Coin</h2>
 
 <div class="ca">
 DZjBpT8ddQom9GJXBqWNzcJQGw4ZE9RNVryzWcy5pump
 </div>
 
-<div id="price" class="price">
-Loading price...
-</div>
-
 <br>
+
+<button onclick="window.open('https://dexscreener.com/solana/brsukseevbkxq8bywelemdt7wwgfprkjxtevkpobm3bo')">
+View on Dexscreener
+</button>
 
 <button onclick="window.open('https://x.com/i/communities/2029971730362487122')">
 Join Community
@@ -290,12 +422,6 @@ Join Community
 
 <button onclick="window.open('https://github.com/xNotch')">
 Support Notch
-</button>
-
-<br>
-
-<button onclick="window.open('https://dexscreener.com/solana/brsukseevbkxq8bywelemdt7wwgfprkjxtevkpobm3bo')">
-View on Dexscreener
 </button>
 
 <h2>About Notch</h2>
@@ -318,9 +444,9 @@ The community is now watching closely as experimental projects like Levers & Che
 Cryptocurrencies and memecoins are highly volatile assets and involve significant financial risk.  
 Always do your own research before participating in any crypto project.
 
-This coin is a community-created token and is **not created, maintained, endorsed, or affiliated with Markus Persson (Notch) or the Levers & Chests game project in any official capacity.**
+This coin is a community-created token and is **not created, maintained, endorsed, or affiliated with Markus Persson (Notch)** or the Levers & Chests game project.
 
-The purpose of the community coin is to support and celebrate the development of experimental game ideas and to help bring attention and potential funding toward independent game development.
+It is purely a community initiative created to celebrate and support independent game development.
 
 </div>
 
@@ -329,6 +455,8 @@ The purpose of the community coin is to support and celebrate the development of
 </audio>
 
 <script>
+
+/* load counter */
 
 async function loadCount(){
 
@@ -339,6 +467,7 @@ const res = await fetch(
 const data = await res.json()
 
 document.getElementById("countNumber").innerText = data.value || 0
+document.getElementById("leverStat").innerText = data.value || 0
 
 }
 
@@ -353,8 +482,11 @@ const res = await fetch(
 const data = await res.json()
 
 document.getElementById("countNumber").innerText = data.value
+document.getElementById("leverStat").innerText = data.value
 
 }
+
+/* lever */
 
 function pullLever(){
 
@@ -379,14 +511,15 @@ behavior:"smooth"
 
 }
 
+/* gold burst */
+
 function createBurst(){
 
-const container = document.getElementById("particles")
+const container=document.getElementById("particles")
 
 for(let i=0;i<30;i++){
 
 const p=document.createElement("div")
-
 p.className="particle"
 
 const x=(Math.random()*300-150)+"px"
@@ -403,7 +536,9 @@ setTimeout(()=>p.remove(),800)
 
 }
 
-async function loadPrice(){
+/* dex stats */
+
+async function loadStats(){
 
 try{
 
@@ -415,22 +550,31 @@ const data = await res.json()
 
 const pair = data.pair
 
-document.getElementById("price").innerHTML =
-"Price: $" + pair.priceUsd + "<br>24h Volume: $" + pair.volume.h24
+document.getElementById("priceStat").innerText =
+"$"+Number(pair.priceUsd).toFixed(6)
+
+document.getElementById("volumeStat").innerText =
+"$"+Math.round(pair.volume.h24)
+
+document.getElementById("liqStat").innerText =
+"$"+Math.round(pair.liquidity.usd)
+
+document.getElementById("mcStat").innerText =
+"$"+Math.round(pair.fdv)
 
 }catch(e){
 
-document.getElementById("price").innerText="Price unavailable"
+console.log("stats error")
 
 }
 
 }
 
-loadPrice()
-setInterval(loadPrice,30000)
+loadStats()
+
+setInterval(loadStats,30000)
 
 </script>
 
 </body>
-
 </html>
