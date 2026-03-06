@@ -7,7 +7,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Pixel Font -->
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
 <!-- OpenGraph -->
@@ -19,14 +18,10 @@
 <meta property="og:type" content="website">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Levers & Chests">
-<meta name="twitter:description" content="Pull the lever. Unlock the dungeon.">
-<meta name="twitter:image" content="https://leversandchests.fun/preview.png">
 
 <style>
 
 body{
-
 margin:0;
 font-family:'Press Start 2P', monospace;
 background:#0f0f0f;
@@ -39,315 +34,260 @@ linear-gradient(#2a2a2a 2px, transparent 2px),
 linear-gradient(90deg,#2a2a2a 2px, transparent 2px);
 
 background-size:80px 80px;
-
 }
 
-/* Floating stats bar */
+/* floating stats */
 
 .statsbar{
-
 position:fixed;
 top:0;
 left:0;
 width:100%;
-
 background:#0a0a0a;
 border-bottom:3px solid #333;
-
 display:flex;
 justify-content:center;
 gap:40px;
-
 padding:12px;
 font-size:11px;
-
 z-index:999;
-
+flex-wrap:wrap;
 }
 
 .statsbar span{
-
 color:#ffd76a;
-
 }
 
 /* fog */
 
 .fog{
-
 position:fixed;
 top:0;
 left:0;
-
 width:200%;
 height:200%;
-
 background:
 radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 60%);
-
 animation:fogmove 60s linear infinite;
-
 pointer-events:none;
-
+will-change: transform;
 }
 
 @keyframes fogmove{
-
 0%{transform:translateX(0)}
 100%{transform:translateX(-50%)}
-
 }
 
 /* hero */
 
 .hero{
-
 height:100vh;
-
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-
 position:relative;
-
 margin-top:40px;
-
 }
 
 /* torches */
 
 .torch{
-
 position:absolute;
 top:140px;
-
 width:30px;
 height:80px;
-
 }
 
 .torch.left{left:60px;}
 .torch.right{right:60px;}
 
 .flame{
-
 width:18px;
 height:26px;
-
 margin:auto;
-
 background:orange;
-
 border-radius:50%;
-
 box-shadow:0 0 20px orange;
-
 animation:flicker .25s infinite alternate;
-
 }
 
 .stick{
-
 width:6px;
 height:50px;
-
 background:#5a3b1a;
-
 margin:auto;
-
 }
 
 @keyframes flicker{
-
 from{transform:scale(1)}
 to{transform:scale(1.2)}
-
 }
 
 /* title */
 
 h1{
-
 color:#ffd76a;
 margin-bottom:40px;
 font-size:34px;
-
 }
 
 /* lever */
 
 .lever-block{
-
 width:140px;
 height:120px;
-
 background:#555;
-
 border:6px solid #777;
-
 display:flex;
 align-items:center;
 justify-content:center;
-
 cursor:pointer;
-
 }
 
 .lever{
-
 width:16px;
 height:80px;
-
 background:#d12b2b;
-
 transform-origin:bottom;
-
 transition:.4s;
-
 }
 
 .lever.pulled{
-
 transform:rotate(50deg);
-
 }
 
 /* counter */
 
 .counter{
-
 margin-top:25px;
 color:#ffd76a;
 font-size:14px;
-
 }
 
 /* particles */
 
 #particles{
-
 position:absolute;
 top:50%;
 left:50%;
-
 pointer-events:none;
-
 }
 
 .particle{
-
 position:absolute;
-
 width:6px;
 height:6px;
-
 background:gold;
-
 border-radius:50%;
-
 animation:burst 800ms ease-out forwards;
-
 }
 
 @keyframes burst{
-
-0%{
-
-transform:translate(0,0) scale(1);
-opacity:1;
-
-}
-
-100%{
-
-transform:translate(var(--x),var(--y)) scale(0);
-opacity:0;
-
-}
-
+0%{transform:translate(0,0) scale(1);opacity:1;}
+100%{transform:translate(var(--x),var(--y)) scale(0);opacity:0;}
 }
 
 /* content */
 
 .panel{
-
 padding:80px 20px;
-
 background:#111;
-
 border-top:6px solid #333;
-
 }
 
 button{
-
 padding:14px 22px;
-
 background:#ffd76a;
-
 border:none;
-
 font-family:'Press Start 2P';
-
 cursor:pointer;
-
 margin-top:20px;
-
 }
 
 button:hover{
-
 background:#ffe8a6;
-
 }
 
 /* coin */
 
 .ca{
-
 background:black;
-
 padding:18px;
-
 border:3px solid #666;
-
 display:inline-block;
-
 margin-top:20px;
-
 word-break:break-all;
+}
 
+/* floating buy button */
+
+.buybtn{
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+background:#ffd76a;
+color:black;
+padding:16px 28px;
+font-size:12px;
+border-radius:6px;
+cursor:pointer;
+box-shadow:0 0 20px rgba(255,215,0,0.4);
+z-index:1000;
 }
 
 /* disclaimer */
 
 .disclaimer{
-
 margin-top:80px;
-
 padding:40px;
-
 background:#0a0a0a;
-
 border-top:4px solid #333;
-
 font-size:11px;
-
 line-height:1.6;
-
 color:#aaa;
-
 max-width:900px;
-
 margin-left:auto;
 margin-right:auto;
-
 }
 
 .hidden{
-
 display:none;
+}
+
+/* MOBILE */
+
+@media (max-width:768px){
+
+h1{font-size:22px;}
+
+.lever-block{
+width:110px;
+height:90px;
+}
+
+.lever{
+height:60px;
+}
+
+.torch{
+top:90px;
+}
+
+.torch.left{left:20px;}
+.torch.right{right:20px;}
+
+button{
+font-size:10px;
+padding:12px 16px;
+}
+
+.counter{font-size:11px;}
+
+.disclaimer{font-size:9px;}
+
+.statsbar{font-size:9px;}
 
 }
 
@@ -444,10 +384,12 @@ The community is now watching closely as experimental projects like Levers & Che
 Cryptocurrencies and memecoins are highly volatile assets and involve significant financial risk.  
 Always do your own research before participating in any crypto project.
 
-This coin is a community-created token and is **not created, maintained, endorsed, or affiliated with Markus Persson (Notch)** or the Levers & Chests game project.
+This coin is a community-created token and is not created, maintained, endorsed, or affiliated with Markus Persson (Notch) or the Levers & Chests game project.
 
-It is purely a community initiative created to celebrate and support independent game development.
+</div>
 
+<div class="buybtn" onclick="window.open('https://dexscreener.com/solana/brsukseevbkxq8bywelemdt7wwgfprkjxtevkpobm3bo')">
+BUY LEVERS
 </div>
 
 <audio id="leverSound">
@@ -456,14 +398,11 @@ It is purely a community initiative created to celebrate and support independent
 
 <script>
 
-/* load counter */
+/* counter */
 
 async function loadCount(){
 
-const res = await fetch(
-"https://api.countapi.xyz/get/leversandchests/lever"
-)
-
+const res = await fetch("https://api.countapi.xyz/get/leversandchests/lever")
 const data = await res.json()
 
 document.getElementById("countNumber").innerText = data.value || 0
@@ -475,10 +414,7 @@ loadCount()
 
 async function incrementCounter(){
 
-const res = await fetch(
-"https://api.countapi.xyz/hit/leversandchests/lever"
-)
-
+const res = await fetch("https://api.countapi.xyz/hit/leversandchests/lever")
 const data = await res.json()
 
 document.getElementById("countNumber").innerText = data.value
@@ -493,6 +429,10 @@ function pullLever(){
 document.getElementById("lever").classList.add("pulled")
 
 document.getElementById("leverSound").play()
+
+if(navigator.vibrate){
+navigator.vibrate(60)
+}
 
 createBurst()
 
@@ -511,7 +451,7 @@ behavior:"smooth"
 
 }
 
-/* gold burst */
+/* particles */
 
 function createBurst(){
 
@@ -542,25 +482,14 @@ async function loadStats(){
 
 try{
 
-const res = await fetch(
-"https://api.dexscreener.com/latest/dex/pairs/solana/brsukseevbkxq8bywelemdt7wwgfprkjxtevkpobm3bo"
-)
-
+const res = await fetch("https://api.dexscreener.com/latest/dex/pairs/solana/brsukseevbkxq8bywelemdt7wwgfprkjxtevkpobm3bo")
 const data = await res.json()
-
 const pair = data.pair
 
-document.getElementById("priceStat").innerText =
-"$"+Number(pair.priceUsd).toFixed(6)
-
-document.getElementById("volumeStat").innerText =
-"$"+Math.round(pair.volume.h24)
-
-document.getElementById("liqStat").innerText =
-"$"+Math.round(pair.liquidity.usd)
-
-document.getElementById("mcStat").innerText =
-"$"+Math.round(pair.fdv)
+document.getElementById("priceStat").innerText="$"+Number(pair.priceUsd).toFixed(6)
+document.getElementById("volumeStat").innerText="$"+Math.round(pair.volume.h24)
+document.getElementById("liqStat").innerText="$"+Math.round(pair.liquidity.usd)
+document.getElementById("mcStat").innerText="$"+Math.round(pair.fdv)
 
 }catch(e){
 
@@ -571,7 +500,6 @@ console.log("stats error")
 }
 
 loadStats()
-
 setInterval(loadStats,30000)
 
 </script>
