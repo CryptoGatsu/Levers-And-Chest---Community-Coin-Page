@@ -16,18 +16,22 @@ font-family:'Press Start 2P', monospace;
 text-align:center;
 overflow-x:hidden;
 
-/* pixel block background */
-
-background:
-
-linear-gradient(45deg,#2a2a2a 25%, transparent 25%) -20px 0,
-linear-gradient(-45deg,#2a2a2a 25%, transparent 25%) -20px 0,
-linear-gradient(45deg, transparent 75%, #2a2a2a 75%),
-linear-gradient(-45deg, transparent 75%, #2a2a2a 75%);
-
-background-size:40px 40px;
+/* dungeon brick background */
 
 background-color:#1a1a1a;
+
+background-image:
+
+linear-gradient(#2b2b2b 2px, transparent 2px),
+linear-gradient(90deg,#2b2b2b 2px, transparent 2px),
+linear-gradient(#1f1f1f 1px, transparent 1px),
+linear-gradient(90deg,#1f1f1f 1px, transparent 1px);
+
+background-size:
+80px 80px,
+80px 80px,
+40px 40px,
+40px 40px;
 
 }
 
@@ -45,137 +49,228 @@ margin-bottom:40px;
 /* lever */
 
 .lever{
+
 width:120px;
 height:120px;
+
 margin:auto;
+
 background:#444;
-border:5px solid #777;
-border-radius:12px;
+
+border:6px solid #777;
+
+border-radius:8px;
+
 display:flex;
-justify-content:center;
+
 align-items:center;
+
+justify-content:center;
+
 cursor:pointer;
-transition:.4s;
+
 }
 
+/* lever sprite */
+
 .lever-stick{
-width:16px;
-height:90px;
-background:red;
+
+width:18px;
+
+height:80px;
+
+background:#d12b2b;
+
 border-radius:4px;
+
 transition:.4s;
+
 }
 
 .lever.pulled .lever-stick{
-transform:rotate(50deg) translateY(30px);
+
+transform:rotate(50deg) translateY(25px);
+
 }
 
 /* chest */
 
 .chest{
+
 width:280px;
+
 height:160px;
+
 margin:40px auto;
+
 background:linear-gradient(#6a3f1d,#4a2b13);
+
 border:6px solid #b48a44;
+
 border-radius:10px;
+
 display:flex;
+
 align-items:center;
+
 justify-content:center;
+
 position:relative;
+
 transition:.6s;
+
 }
 
 .chest.open{
+
 box-shadow:0 0 80px gold;
+
 }
 
 .lid{
+
 position:absolute;
+
 top:-30px;
+
 width:280px;
+
 height:50px;
+
 background:#7b4a21;
+
 border:6px solid #b48a44;
+
 transform-origin:bottom;
+
 transition:.5s;
+
 }
 
 .chest.open .lid{
+
 transform:rotateX(120deg);
+
 }
 
 /* gears */
 
 .gear{
+
 position:absolute;
+
 width:120px;
+
 height:120px;
+
 border:10px solid #333;
+
 border-radius:50%;
+
 animation:spin 8s linear infinite;
+
 }
 
 .gear:before{
+
 content:"";
+
 position:absolute;
+
 width:20px;
+
 height:20px;
+
 background:#333;
+
 top:50%;
+
 left:50%;
+
 transform:translate(-50%,-50%);
+
 }
 
 .gear1{left:60px;top:200px;}
+
 .gear2{right:60px;top:260px;animation-direction:reverse;}
 
 @keyframes spin{
+
 from{transform:rotate(0)}
+
 to{transform:rotate(360deg)}
+
 }
 
-/* panel */
+/* panels */
 
 .panel{
+
 margin-top:80px;
+
 padding:40px;
+
 background:#111;
+
 border-top:6px solid #333;
+
 }
 
 /* coin address */
 
 .ca{
+
 background:black;
+
 padding:18px;
+
 border:3px solid #666;
+
 display:inline-block;
+
 margin-top:20px;
+
 word-break:break-all;
+
 }
 
 button{
+
 margin-top:20px;
+
 padding:14px 22px;
+
 background:#ffd76a;
+
 border:none;
+
 font-family:'Press Start 2P';
+
 cursor:pointer;
+
 }
 
 button:hover{
+
 background:#ffe8a6;
+
 }
 
 .hidden{
+
 display:none;
+
 }
 
-.chart-container{
-max-width:700px;
+.swap-box{
+
+max-width:420px;
+
 margin:auto;
+
 margin-top:40px;
+
 }
 
 </style>
@@ -194,12 +289,17 @@ Pull the lever. Unlock the chest.
 </div>
 
 <div class="lever" id="lever" onclick="pullLever()">
+
 <div class="lever-stick"></div>
+
 </div>
 
 <div id="chest" class="chest hidden">
+
 <div class="lid"></div>
+
 TREASURE
+
 </div>
 
 <div id="content" class="panel hidden">
@@ -207,47 +307,69 @@ TREASURE
 <h2>The Game</h2>
 
 <p>
+
 Levers & Chests is a mysterious new project being explored by the community following the work of Markus Persson.
+
 </p>
 
 <h2>Community Coin</h2>
 
 <div class="ca">
+
 DZjBpT8ddQom9GJXBqWNzcJQGw4ZE9RNVryzWcy5pump
+
 </div>
 
 <br>
 
 <button onclick="window.open('https://x.com/i/communities/2029971730362487122')">
+
 Join Community
+
 </button>
 
 <button onclick="window.open('https://github.com/xNotch')">
+
 Support Notch
+
 </button>
+
+<br>
+
+<button onclick="window.open('https://dexscreener.com/solana/brsukseevbkxq8bywelemdt7wwgfprkjxtevkpobm3bo')">
+
+View on Dexscreener
+
+</button>
+
+<h2>Swap SOL → LEVERS</h2>
+
+<div class="swap-box">
+
+<iframe
+
+src="https://jup.ag/swap/SOL-Levers"
+
+width="100%"
+
+height="600"
+
+style="border:none"
+
+></iframe>
+
+</div>
 
 <h2>About Notch</h2>
 
 <p style="max-width:700px;margin:auto;line-height:1.6">
 
 Markus Persson created Minecraft in 2009.  
-The sandbox game became one of the most influential games ever made, inspiring millions of players and developers around the world.
+The sandbox game became one of the most influential games ever made, inspiring millions of players and developers worldwide.
 
-The community is now watching closely as new experimental projects like Levers & Chests begin to emerge.
+The community is now watching closely as experimental projects like Levers & Chests begin to emerge.
 
 </p>
-
-<h2>Coin Chart</h2>
-
-<div class="chart-container">
-
-<iframe
-src="https://dexscreener.com/solana/DZjBpT8ddQom9GJXBqWNzcJQGw4ZE9RNVryzWcy5pump?embed=1"
-width="100%"
-height="320">
-</iframe>
-
-</div>
 
 </div>
 
@@ -260,6 +382,7 @@ document.getElementById("lever").classList.add("pulled")
 setTimeout(()=>{
 
 document.getElementById("chest").classList.remove("hidden")
+
 document.getElementById("chest").classList.add("open")
 
 document.getElementById("content").classList.remove("hidden")
