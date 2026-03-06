@@ -10,10 +10,15 @@
 <style>
 
 body{
+
 margin:0;
+
 color:white;
+
 font-family:'Press Start 2P', monospace;
+
 text-align:center;
+
 overflow-x:hidden;
 
 /* dungeon brick background */
@@ -27,39 +32,107 @@ linear-gradient(90deg,#2b2b2b 2px, transparent 2px),
 linear-gradient(#1f1f1f 1px, transparent 1px),
 linear-gradient(90deg,#1f1f1f 1px, transparent 1px);
 
-background-size:
-80px 80px,
-80px 80px,
-40px 40px,
-40px 40px;
+background-size:80px 80px,80px 80px,40px 40px,40px 40px;
 
 }
 
+/* title */
+
 h1{
+
 color:#ffd76a;
+
 margin-top:60px;
+
 font-size:34px;
+
 }
 
 .subtitle{
+
 color:#bbb;
+
 margin-bottom:40px;
+
 }
 
-/* lever */
+/* torches */
 
-.lever{
+.torch{
+
+position:fixed;
+
+top:180px;
+
+width:30px;
+
+height:80px;
+
+}
+
+.torch.left{
+
+left:40px;
+
+}
+
+.torch.right{
+
+right:40px;
+
+}
+
+.flame{
+
+width:20px;
+
+height:30px;
+
+margin:auto;
+
+background:orange;
+
+border-radius:50% 50% 40% 40%;
+
+animation:flicker .2s infinite alternate;
+
+box-shadow:0 0 20px orange;
+
+}
+
+.stick{
+
+width:6px;
+
+height:50px;
+
+background:#5a3b1a;
+
+margin:auto;
+
+}
+
+@keyframes flicker{
+
+from{transform:scale(1);opacity:.9}
+
+to{transform:scale(1.2);opacity:1}
+
+}
+
+/* lever block */
+
+.lever-block{
 
 width:120px;
+
 height:120px;
 
 margin:auto;
 
-background:#444;
+background:#555;
 
 border:6px solid #777;
-
-border-radius:8px;
 
 display:flex;
 
@@ -73,73 +146,69 @@ cursor:pointer;
 
 /* lever sprite */
 
-.lever-stick{
+.lever{
 
-width:18px;
+width:16px;
 
-height:80px;
+height:70px;
 
 background:#d12b2b;
 
-border-radius:4px;
+transform-origin:bottom;
 
 transition:.4s;
 
 }
 
-.lever.pulled .lever-stick{
+.lever.pulled{
 
-transform:rotate(50deg) translateY(25px);
+transform:rotate(50deg);
 
 }
 
-/* chest */
+/* chest sprite */
 
 .chest{
 
-width:280px;
+width:260px;
 
-height:160px;
+height:120px;
 
-margin:40px auto;
-
-background:linear-gradient(#6a3f1d,#4a2b13);
-
-border:6px solid #b48a44;
-
-border-radius:10px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
+margin:50px auto;
 
 position:relative;
 
-transition:.6s;
+}
+
+.chest-base{
+
+width:100%;
+
+height:70px;
+
+background:#5c3b1e;
+
+border:6px solid #b48a44;
+
+border-radius:6px;
 
 }
 
-.chest.open{
+.chest-lid{
 
-box-shadow:0 0 80px gold;
-
-}
-
-.lid{
-
-position:absolute;
-
-top:-30px;
-
-width:280px;
+width:100%;
 
 height:50px;
 
-background:#7b4a21;
+background:#7a4c22;
 
 border:6px solid #b48a44;
+
+border-bottom:none;
+
+position:absolute;
+
+top:-40px;
 
 transform-origin:bottom;
 
@@ -147,59 +216,17 @@ transition:.5s;
 
 }
 
-.chest.open .lid{
+.chest.open .chest-lid{
 
 transform:rotateX(120deg);
 
 }
 
-/* gears */
+/* glow */
 
-.gear{
+.chest.open{
 
-position:absolute;
-
-width:120px;
-
-height:120px;
-
-border:10px solid #333;
-
-border-radius:50%;
-
-animation:spin 8s linear infinite;
-
-}
-
-.gear:before{
-
-content:"";
-
-position:absolute;
-
-width:20px;
-
-height:20px;
-
-background:#333;
-
-top:50%;
-
-left:50%;
-
-transform:translate(-50%,-50%);
-
-}
-
-.gear1{left:60px;top:200px;}
-
-.gear2{right:60px;top:260px;animation-direction:reverse;}
-
-@keyframes spin{
-
-from{transform:rotate(0)}
-
-to{transform:rotate(360deg)}
+box-shadow:0 0 60px gold;
 
 }
 
@@ -217,23 +244,7 @@ border-top:6px solid #333;
 
 }
 
-/* coin address */
-
-.ca{
-
-background:black;
-
-padding:18px;
-
-border:3px solid #666;
-
-display:inline-block;
-
-margin-top:20px;
-
-word-break:break-all;
-
-}
+/* buttons */
 
 button{
 
@@ -257,11 +268,25 @@ background:#ffe8a6;
 
 }
 
-.hidden{
+/* coin address */
 
-display:none;
+.ca{
+
+background:black;
+
+padding:18px;
+
+border:3px solid #666;
+
+display:inline-block;
+
+margin-top:20px;
+
+word-break:break-all;
 
 }
+
+/* swap */
 
 .swap-box{
 
@@ -273,34 +298,63 @@ margin-top:40px;
 
 }
 
+.hidden{
+
+display:none;
+
+}
+
 </style>
 
 </head>
 
 <body>
 
-<div class="gear gear1"></div>
-<div class="gear gear2"></div>
+<!-- torches -->
+
+<div class="torch left">
+
+<div class="flame"></div>
+
+<div class="stick"></div>
+
+</div>
+
+<div class="torch right">
+
+<div class="flame"></div>
+
+<div class="stick"></div>
+
+</div>
 
 <h1>LEVERS & CHESTS</h1>
 
 <div class="subtitle">
+
 Pull the lever. Unlock the chest.
-</div>
-
-<div class="lever" id="lever" onclick="pullLever()">
-
-<div class="lever-stick"></div>
 
 </div>
+
+<!-- lever -->
+
+<div class="lever-block" onclick="pullLever()">
+
+<div id="lever" class="lever"></div>
+
+</div>
+
+<!-- chest -->
 
 <div id="chest" class="chest hidden">
 
-<div class="lid"></div>
+<div class="chest-lid"></div>
 
-TREASURE
+<div class="chest-base"></div>
 
 </div>
+
+<!-- content -->
 
 <div id="content" class="panel hidden">
 
@@ -354,9 +408,9 @@ width="100%"
 
 height="600"
 
-style="border:none"
+style="border:none">
 
-></iframe>
+</iframe>
 
 </div>
 
