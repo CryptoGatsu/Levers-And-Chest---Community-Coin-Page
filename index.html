@@ -11,25 +11,24 @@
 
 body{
 margin:0;
-background:#0b0b0b;
 color:white;
 font-family:'Press Start 2P', monospace;
 text-align:center;
 overflow-x:hidden;
-}
 
-/* dungeon background */
+/* pixel block background */
 
-body::before{
-content:"";
-position:fixed;
-width:100%;
-height:100%;
 background:
-radial-gradient(circle at 20% 30%,rgba(255,120,0,0.25),transparent 40%),
-radial-gradient(circle at 80% 40%,rgba(255,120,0,0.25),transparent 40%),
-linear-gradient(#1c1c1c,#050505);
-z-index:-1;
+
+linear-gradient(45deg,#2a2a2a 25%, transparent 25%) -20px 0,
+linear-gradient(-45deg,#2a2a2a 25%, transparent 25%) -20px 0,
+linear-gradient(45deg, transparent 75%, #2a2a2a 75%),
+linear-gradient(-45deg, transparent 75%, #2a2a2a 75%);
+
+background-size:40px 40px;
+
+background-color:#1a1a1a;
+
 }
 
 h1{
@@ -136,12 +135,16 @@ from{transform:rotate(0)}
 to{transform:rotate(360deg)}
 }
 
+/* panel */
+
 .panel{
 margin-top:80px;
 padding:40px;
 background:#111;
 border-top:6px solid #333;
 }
+
+/* coin address */
 
 .ca{
 background:black;
@@ -150,21 +153,6 @@ border:3px solid #666;
 display:inline-block;
 margin-top:20px;
 word-break:break-all;
-}
-
-.inventory{
-margin-top:40px;
-display:grid;
-grid-template-columns:repeat(5,70px);
-gap:10px;
-justify-content:center;
-}
-
-.slot{
-width:70px;
-height:70px;
-background:#222;
-border:3px solid #555;
 }
 
 button{
@@ -183,8 +171,6 @@ background:#ffe8a6;
 .hidden{
 display:none;
 }
-
-/* chart */
 
 .chart-container{
 max-width:700px;
@@ -244,32 +230,12 @@ Support Notch
 
 <p style="max-width:700px;margin:auto;line-height:1.6">
 
-Markus Persson, also known as Notch, created Minecraft in 2009.  
-The sandbox game quickly became one of the most influential and successful games ever made, inspiring an entire generation of builders and game developers.
+Markus Persson created Minecraft in 2009.  
+The sandbox game became one of the most influential games ever made, inspiring millions of players and developers around the world.
 
-Today millions of players around the world still explore the block-based worlds he created.
-
-The community is now watching closely as new experimental projects like Levers & Chests begin to appear.
+The community is now watching closely as new experimental projects like Levers & Chests begin to emerge.
 
 </p>
-
-<h2>Inventory</h2>
-
-<div class="inventory">
-
-<div class="slot"></div>
-<div class="slot"></div>
-<div class="slot"></div>
-<div class="slot"></div>
-<div class="slot"></div>
-
-<div class="slot"></div>
-<div class="slot"></div>
-<div class="slot"></div>
-<div class="slot"></div>
-<div class="slot"></div>
-
-</div>
 
 <h2>Coin Chart</h2>
 
