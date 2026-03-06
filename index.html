@@ -17,8 +17,6 @@ font-family:'Press Start 2P', monospace;
 text-align:center;
 overflow-x:hidden;
 
-/* dungeon bricks */
-
 background-image:
 linear-gradient(#2a2a2a 2px, transparent 2px),
 linear-gradient(90deg,#2a2a2a 2px, transparent 2px);
@@ -127,15 +125,15 @@ transition:.4s;
 transform:rotate(50deg);
 }
 
-/* lever counter */
+/* counter */
 
 .counter{
-margin-top:30px;
+margin-top:25px;
 color:#ffd76a;
 font-size:14px;
 }
 
-/* gold particles */
+/* particles */
 
 #particles{
 position:absolute;
@@ -187,7 +185,7 @@ button:hover{
 background:#ffe8a6;
 }
 
-/* coin address */
+/* coin */
 
 .ca{
 background:black;
@@ -198,12 +196,25 @@ margin-top:20px;
 word-break:break-all;
 }
 
-/* price */
-
 .price{
 margin-top:25px;
 color:#ffd76a;
 font-size:14px;
+}
+
+/* disclaimer */
+
+.disclaimer{
+margin-top:80px;
+padding:40px;
+background:#0a0a0a;
+border-top:4px solid #333;
+font-size:11px;
+line-height:1.6;
+color:#aaa;
+max-width:900px;
+margin-left:auto;
+margin-right:auto;
 }
 
 .hidden{
@@ -217,8 +228,6 @@ display:none;
 <body>
 
 <div class="fog"></div>
-
-<!-- HERO -->
 
 <div class="hero">
 
@@ -253,9 +262,6 @@ Pull the lever to unlock the dungeon
 
 </div>
 
-
-<!-- CONTENT -->
-
 <div id="content" class="panel hidden">
 
 <h2>The Game</h2>
@@ -269,37 +275,27 @@ Levers & Chests is a mysterious new project being explored by the community foll
 <h2>Community Coin</h2>
 
 <div class="ca">
-
 DZjBpT8ddQom9GJXBqWNzcJQGw4ZE9RNVryzWcy5pump
-
 </div>
 
 <div id="price" class="price">
-
 Loading price...
-
 </div>
 
 <br>
 
 <button onclick="window.open('https://x.com/i/communities/2029971730362487122')">
-
 Join Community
-
 </button>
 
 <button onclick="window.open('https://github.com/xNotch')">
-
 Support Notch
-
 </button>
 
 <br>
 
 <button onclick="window.open('https://dexscreener.com/solana/brsukseevbkxq8bywelemdt7wwgfprkjxtevkpobm3bo')">
-
 View on Dexscreener
-
 </button>
 
 <h2>About Notch</h2>
@@ -315,20 +311,43 @@ The community is now watching closely as experimental projects like Levers & Che
 
 </div>
 
+<div class="disclaimer">
+
+⚠️ Disclaimer
+
+Cryptocurrencies and memecoins are highly volatile assets and involve significant financial risk.  
+Always do your own research before participating in any crypto project.
+
+This coin is a community-created token and is **not created, maintained, endorsed, or affiliated with Markus Persson (Notch) or the Levers & Chests game project in any official capacity.**
+
+The purpose of the community coin is to support and celebrate the development of experimental game ideas and to help bring attention and potential funding toward independent game development.
+
+</div>
 
 <audio id="leverSound">
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8c64c1c9c2.mp3" type="audio/mpeg">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8c64c1c9c2.mp3">
 </audio>
 
-
 <script>
-
-/* global counter */
 
 async function loadCount(){
 
 const res = await fetch(
-"https://api.countapi.xyz/hit/leverschests/global"
+"https://api.countapi.xyz/get/leversandchests/lever"
+)
+
+const data = await res.json()
+
+document.getElementById("countNumber").innerText = data.value || 0
+
+}
+
+loadCount()
+
+async function incrementCounter(){
+
+const res = await fetch(
+"https://api.countapi.xyz/hit/leversandchests/lever"
 )
 
 const data = await res.json()
@@ -336,10 +355,6 @@ const data = await res.json()
 document.getElementById("countNumber").innerText = data.value
 
 }
-
-loadCount()
-
-/* lever pull */
 
 function pullLever(){
 
@@ -364,34 +379,18 @@ behavior:"smooth"
 
 }
 
-/* increase counter */
-
-async function incrementCounter(){
-
-const res = await fetch(
-"https://api.countapi.xyz/hit/leverschests/global"
-)
-
-const data = await res.json()
-
-document.getElementById("countNumber").innerText = data.value
-
-}
-
-/* gold burst */
-
 function createBurst(){
 
 const container = document.getElementById("particles")
 
 for(let i=0;i<30;i++){
 
-const p = document.createElement("div")
+const p=document.createElement("div")
 
 p.className="particle"
 
-const x = (Math.random()*300-150)+"px"
-const y = (Math.random()*200-100)+"px"
+const x=(Math.random()*300-150)+"px"
+const y=(Math.random()*200-100)+"px"
 
 p.style.setProperty("--x",x)
 p.style.setProperty("--y",y)
@@ -403,8 +402,6 @@ setTimeout(()=>p.remove(),800)
 }
 
 }
-
-/* live price */
 
 async function loadPrice(){
 
@@ -430,7 +427,6 @@ document.getElementById("price").innerText="Price unavailable"
 }
 
 loadPrice()
-
 setInterval(loadPrice,30000)
 
 </script>
