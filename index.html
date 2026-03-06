@@ -15,23 +15,47 @@ background:#0f0f0f;
 color:white;
 font-family:'Press Start 2P', monospace;
 text-align:center;
-}
+overflow-x:hidden;
 
 /* dungeon bricks */
-
-body{
 
 background-image:
 linear-gradient(#2a2a2a 2px, transparent 2px),
 linear-gradient(90deg,#2a2a2a 2px, transparent 2px);
 
 background-size:80px 80px;
-
 background-color:#1a1a1a;
 
 }
 
-/* HERO */
+/* fog layer */
+
+.fog{
+
+position:fixed;
+top:0;
+left:0;
+
+width:200%;
+height:200%;
+
+background:
+radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 60%);
+
+animation:fogmove 60s linear infinite;
+
+pointer-events:none;
+
+}
+
+@keyframes fogmove{
+
+0%{transform:translateX(0)}
+100%{transform:translateX(-50%)}
+
+}
+
+/* hero */
 
 .hero{
 
@@ -59,17 +83,8 @@ height:80px;
 
 }
 
-.torch.left{
-
-left:60px;
-
-}
-
-.torch.right{
-
-right:60px;
-
-}
+.torch.left{left:60px;}
+.torch.right{right:60px;}
 
 .flame{
 
@@ -111,9 +126,7 @@ to{transform:scale(1.2)}
 h1{
 
 color:#ffd76a;
-
 margin-bottom:40px;
-
 font-size:34px;
 
 }
@@ -170,6 +183,8 @@ border-top:6px solid #333;
 
 }
 
+/* buttons */
+
 button{
 
 padding:14px 22px;
@@ -214,28 +229,36 @@ display:none;
 
 }
 
+/* price panel */
+
+.price{
+
+margin-top:30px;
+font-size:14px;
+color:#ffd76a;
+
+}
+
 </style>
 
 </head>
 
 <body>
 
-<!-- HERO SECTION -->
+<div class="fog"></div>
+
+<!-- HERO -->
 
 <div class="hero">
 
 <div class="torch left">
-
 <div class="flame"></div>
 <div class="stick"></div>
-
 </div>
 
 <div class="torch right">
-
 <div class="flame"></div>
 <div class="stick"></div>
-
 </div>
 
 <h1>LEVERS & CHESTS</h1>
@@ -247,13 +270,10 @@ display:none;
 </div>
 
 <p style="margin-top:30px;color:#aaa">
-
 Pull the lever to unlock the dungeon
-
 </p>
 
 </div>
-
 
 <!-- CONTENT -->
 
@@ -272,6 +292,12 @@ Levers & Chests is a mysterious new project being explored by the community foll
 <div class="ca">
 
 DZjBpT8ddQom9GJXBqWNzcJQGw4ZE9RNVryzWcy5pump
+
+</div>
+
+<div id="price" class="price">
+
+Loading price...
 
 </div>
 
@@ -302,7 +328,7 @@ View on Dexscreener
 <p style="max-width:700px;margin:auto;line-height:1.6">
 
 Markus Persson created Minecraft in 2009.  
-The sandbox game became one of the most influential games ever made, inspiring millions of players and developers around the world.
+The sandbox game became one of the most influential games ever made.
 
 The community is now watching closely as experimental projects like Levers & Chests begin to emerge.
 
@@ -310,12 +336,19 @@ The community is now watching closely as experimental projects like Levers & Che
 
 </div>
 
+<audio id="leverSound">
+
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8c64c1c9c2.mp3" type="audio/mpeg">
+
+</audio>
 
 <script>
 
 function pullLever(){
 
 document.getElementById("lever").classList.add("pulled")
+
+document.getElementById("leverSound").play()
 
 setTimeout(()=>{
 
@@ -329,6 +362,35 @@ behavior:"smooth"
 },400)
 
 }
+
+/* live dex price */
+
+async function loadPrice(){
+
+try{
+
+const res = await fetch(
+"https://api.dexscreener.com/latest/dex/pairs/solana/brsukseevbkxq8bywelemdt7wwgfprkjxtevkpobm3bo"
+)
+
+const data = await res.json()
+
+const pair = data.pair
+
+document.getElementById("price").innerHTML =
+"Price: $" + pair.priceUsd + "<br>24h Volume: $" + pair.volume.h24
+
+}catch(e){
+
+document.getElementById("price").innerText = "Price unavailable"
+
+}
+
+}
+
+loadPrice()
+
+setInterval(loadPrice,30000)
 
 </script>
 
