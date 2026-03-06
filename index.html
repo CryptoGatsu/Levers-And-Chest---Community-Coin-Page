@@ -25,17 +25,14 @@ linear-gradient(90deg,#2a2a2a 2px, transparent 2px);
 
 background-size:80px 80px;
 background-color:#1a1a1a;
-
 }
 
-/* fog layer */
+/* fog */
 
 .fog{
-
 position:fixed;
 top:0;
 left:0;
-
 width:200%;
 height:200%;
 
@@ -45,198 +42,172 @@ radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 60%);
 animation:fogmove 60s linear infinite;
 
 pointer-events:none;
-
 }
 
 @keyframes fogmove{
-
 0%{transform:translateX(0)}
 100%{transform:translateX(-50%)}
-
 }
 
 /* hero */
 
 .hero{
-
 height:100vh;
-
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-
 position:relative;
-
 }
 
 /* torches */
 
 .torch{
-
 position:absolute;
-
 top:140px;
-
 width:30px;
 height:80px;
-
 }
 
 .torch.left{left:60px;}
 .torch.right{right:60px;}
 
 .flame{
-
 width:18px;
 height:26px;
-
 margin:auto;
-
 background:orange;
-
 border-radius:50%;
-
 box-shadow:0 0 20px orange;
-
 animation:flicker .25s infinite alternate;
-
 }
 
 .stick{
-
 width:6px;
 height:50px;
-
 background:#5a3b1a;
-
 margin:auto;
-
 }
 
 @keyframes flicker{
-
 from{transform:scale(1)}
 to{transform:scale(1.2)}
-
 }
 
 /* title */
 
 h1{
-
 color:#ffd76a;
 margin-bottom:40px;
 font-size:34px;
-
-}
-
-/* lever block */
-
-.lever-block{
-
-width:140px;
-height:120px;
-
-background:#555;
-
-border:6px solid #777;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-cursor:pointer;
-
 }
 
 /* lever */
 
-.lever{
+.lever-block{
+width:140px;
+height:120px;
+background:#555;
+border:6px solid #777;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+}
 
+.lever{
 width:16px;
 height:80px;
-
 background:#d12b2b;
-
 transform-origin:bottom;
-
 transition:.4s;
-
 }
 
 .lever.pulled{
-
 transform:rotate(50deg);
+}
 
+/* lever counter */
+
+.counter{
+margin-top:30px;
+color:#ffd76a;
+font-size:14px;
+}
+
+/* gold particles */
+
+#particles{
+position:absolute;
+top:50%;
+left:50%;
+pointer-events:none;
+}
+
+.particle{
+position:absolute;
+width:6px;
+height:6px;
+background:gold;
+border-radius:50%;
+animation:burst 800ms ease-out forwards;
+}
+
+@keyframes burst{
+0%{
+transform:translate(0,0) scale(1);
+opacity:1;
+}
+100%{
+transform:translate(var(--x), var(--y)) scale(0);
+opacity:0;
+}
 }
 
 /* content */
 
 .panel{
-
 padding:80px 20px;
-
 background:#111;
-
 border-top:6px solid #333;
-
 }
 
 /* buttons */
 
 button{
-
 padding:14px 22px;
-
 background:#ffd76a;
-
 border:none;
-
 font-family:'Press Start 2P';
-
 cursor:pointer;
-
 margin-top:20px;
-
 }
 
 button:hover{
-
 background:#ffe8a6;
-
 }
 
+/* coin address */
+
 .ca{
-
 background:black;
-
 padding:18px;
-
 border:3px solid #666;
-
 display:inline-block;
-
 margin-top:20px;
-
 word-break:break-all;
+}
 
+/* price */
+
+.price{
+margin-top:25px;
+color:#ffd76a;
+font-size:14px;
 }
 
 .hidden{
-
 display:none;
-
-}
-
-/* price panel */
-
-.price{
-
-margin-top:30px;
-font-size:14px;
-color:#ffd76a;
-
 }
 
 </style>
@@ -264,16 +235,24 @@ color:#ffd76a;
 <h1>LEVERS & CHESTS</h1>
 
 <div class="lever-block" onclick="pullLever()">
-
 <div id="lever" class="lever"></div>
+</div>
+
+<div class="counter">
+
+GLOBAL LEVER PULLS  
+<span id="countNumber">Loading...</span>
 
 </div>
+
+<div id="particles"></div>
 
 <p style="margin-top:30px;color:#aaa">
 Pull the lever to unlock the dungeon
 </p>
 
 </div>
+
 
 <!-- CONTENT -->
 
@@ -336,19 +315,41 @@ The community is now watching closely as experimental projects like Levers & Che
 
 </div>
 
+
 <audio id="leverSound">
-
 <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8c64c1c9c2.mp3" type="audio/mpeg">
-
 </audio>
 
+
 <script>
+
+/* global counter */
+
+async function loadCount(){
+
+const res = await fetch(
+"https://api.countapi.xyz/hit/leverschests/global"
+)
+
+const data = await res.json()
+
+document.getElementById("countNumber").innerText = data.value
+
+}
+
+loadCount()
+
+/* lever pull */
 
 function pullLever(){
 
 document.getElementById("lever").classList.add("pulled")
 
 document.getElementById("leverSound").play()
+
+createBurst()
+
+incrementCounter()
 
 setTimeout(()=>{
 
@@ -359,11 +360,51 @@ top:window.innerHeight,
 behavior:"smooth"
 })
 
-},400)
+},600)
 
 }
 
-/* live dex price */
+/* increase counter */
+
+async function incrementCounter(){
+
+const res = await fetch(
+"https://api.countapi.xyz/hit/leverschests/global"
+)
+
+const data = await res.json()
+
+document.getElementById("countNumber").innerText = data.value
+
+}
+
+/* gold burst */
+
+function createBurst(){
+
+const container = document.getElementById("particles")
+
+for(let i=0;i<30;i++){
+
+const p = document.createElement("div")
+
+p.className="particle"
+
+const x = (Math.random()*300-150)+"px"
+const y = (Math.random()*200-100)+"px"
+
+p.style.setProperty("--x",x)
+p.style.setProperty("--y",y)
+
+container.appendChild(p)
+
+setTimeout(()=>p.remove(),800)
+
+}
+
+}
+
+/* live price */
 
 async function loadPrice(){
 
@@ -382,7 +423,7 @@ document.getElementById("price").innerHTML =
 
 }catch(e){
 
-document.getElementById("price").innerText = "Price unavailable"
+document.getElementById("price").innerText="Price unavailable"
 
 }
 
